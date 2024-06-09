@@ -1,0 +1,101 @@
+base_config: ${base_config_path}/train_ddp.yaml
+
+sr: 16000
+n_fft: 512
+hop_length: 160
+
+n_mic: 8
+n_src: 6
+dim_latent: 64
+
+autocast: True
+
+trainer:
+  max_epochs: 200
+  gradient_clip_val: 5.0
+  sync_batchnorm: True
+
+  precision: 16-mixed
+  
+  benchmark: True
+  use_distributed_sampler: False
+
+  callbacks:
+    - _target_: lightning.pytorch.callbacks.ModelCheckpoint
+      filename: "{epoch:04d}"
+      save_last: True
+      save_top_k: -1
+
+    - _target_: lightning.pytorch.callbacks.RichProgressBar
+      refresh_rate: 5
+
+    - _target_: lightning.pytorch.callbacks.RichModelSummary
+      max_depth: 3
+
+    - _target_: neural_fcasa.callbacks.cyclic_annealer.CyclicAnnealerCallback
+      name: beta
+      cycle: 10
+      max_value: 1.0
+      ini_period: 50
+      ini_max_value: 1.0
+
+    - _target_: neural_fcasa.callbacks.visualizer.VisualizerCallback
+
+dataset_name: chunk.derev-hop${hop_length}
+datamodule:
+  _target_: neural_fcasa.datamodules.hdf5_wavact_datamodule.DataModule
+  train_dataset_path: ${working_directory}/../../hdf5/${dataset_name}-tr.hdf5
+  val_dataset_path: ${working_directory}/../../hdf5/${dataset_name}-cv.hdf5
+  batch_size: 2
+  duration: 10
+  sr: ${sr}
+  hop_length: ${hop_length}
+
+task:
+  _target_: neural_fcasa.tasks.avi_scl_allsort_task.AVITask
+  n_fft: ${n_fft}
+  hop_length: ${hop_length}
+  n_src: ${n_src}
+  beta: 1.0
+  gamma: 1.0
+
+  encoder:
+    _target_: neural_fcasa.encoders.resepformer_encoder.RESepFormerEncoder
+    n_fft: ${n_fft}
+    n_mic: ${n_mic}
+    n_src: ${n_src}
+    dim_latent: ${dim_latent}
+    chunk_size: 100
+    step_size: 100
+    d_model: 256
+    dim_feedforward: 1024
+    n_blocks: 8
+    norm_first: True
+    autocast: ${autocast}
+
+    diagonalizer:
+      _target_: neural_fcasa.diagonalizers.iss_nrmxt_diagonalizer.ISSDiagonalizer
+      eps: 1.e-4
+      n_iter: 2
+
+    spec_aug:
+      _target_: torchaudio.transforms.SpecAugment
+      n_time_masks: 2
+      time_mask_param: 64
+      n_freq_masks: 2
+      freq_mask_param: 20
+      zero_masking: True
+
+  decoder:
+    _target_: neural_fcasa.decoders.res_lin_decoder.Decoder
+    n_fft: ${n_fft}
+    dim_latent: ${dim_latent}
+    dim_latent_noi: 10
+
+  optimizer_config:
+    _target_: aiaccel.torch.lightning.OptimizerConfig
+    optimizer_generator:
+      _partial_: True
+      _target_: torch.optim.AdamW
+      lr: 1.e-4
+      weight_decay: 1.e-5
