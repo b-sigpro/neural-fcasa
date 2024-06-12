@@ -19,6 +19,20 @@ python -m neural_fcasa.separate one hf://b-sigpro/neural-fcasa input_derev.wav o
 ```
 
 ### Genral usage
+#### Dereverberation
+```bash
+python -m neural_fcasa.dereverberate input.wav output.wav
+```
+
+This is just a thin wrapper of `nara_wpe`.
+The options are as follows:
+* `--n_fft`: Window length of STFT (default=512)
+* `--hop_length` Hop length of STFT (default=160)
+* `--taps` Tap length of WPE (default=10)
+* `--delay` Delay of WPE (default=3)
+
+
+#### Separation and diarization
 ```bash
 python -m neural_fcasa.separate one /path/to/model/ input.wav output.wav
 ```
@@ -39,15 +53,18 @@ python -m neural_fcasa.separate one hf://b-sigpro/neural-fcasa --dump_diar --noi
 
 ## Traininig
 The training script is compatible with PyTorch Lightning >= 2.2.3.
-The training job file for ABCI is attatched on `recipes/neural-fcasa`.
+
+The training job file for [AI Bridging Cloud Infrastructure (ABCI)](https://abci.ai/) is attatched on [`recipes/neural-fcasa`](https://github.com/b-sigpro/neural-fcasa/tree/main/recipes/neural-fcasa).
+Please see [`config.yaml`](https://github.com/b-sigpro/neural-fcasa/tree/main/recipes/neural-fcasa/config.yaml) for details.
+
 
 
 ## Reference
 ```bibtex
-@inproceeding{bando2023blind,
+@inproceedings{bando2023neural,
   title={Neural Blind Source Separation and Diarization for Distant Speech Recognition},
   author={Yoshiaki Bando and Tomohiko Nakamura and Shinji Watanabe},
-  booktitle={INTERSPEECH},
+  booktitle={accepted for INTERSPEECH},
   year={2024}
 }
 ```
