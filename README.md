@@ -14,7 +14,8 @@ pip install git+https://github.com/b-sigpro/neural-fcasa.git
 ## Inference
 ### Using model pre-trained on the AMI corpus
 ```bash
-python -m neural_fcasa.separate one hf://b-sigpro/neural-fcasa input.wav output.wav
+python -m neural_fcasa.dereverberate input.wav input_derev.wav
+python -m neural_fcasa.separate one hf://b-sigpro/neural-fcasa input_derev.wav output.wav
 ```
 
 ### Genral usage
@@ -43,7 +44,7 @@ The training job file for ABCI is attatched on `recipes/neural-fcasa`.
 
 ## Reference
 ```bibtex
-@inproceeding{bando2021neural,
+@inproceeding{bando2023blind,
   title={Neural Blind Source Separation and Diarization for Distant Speech Recognition},
   author={Yoshiaki Bando and Tomohiko Nakamura and Shinji Watanabe},
   booktitle={INTERSPEECH},

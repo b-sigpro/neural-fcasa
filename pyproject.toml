@@ -26,7 +26,8 @@ dependencies = [
     "torchaudio",
     "kornia",
     "huggingface_hub",
-    "rich"
+    "rich",
+    "nara_wpe"
 ]
 
 [project.urls]
