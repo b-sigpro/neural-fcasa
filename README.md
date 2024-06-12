@@ -18,7 +18,7 @@ python -m neural_fcasa.dereverberate input.wav input_derev.wav
 python -m neural_fcasa.separate one hf://b-sigpro/neural-fcasa input_derev.wav output.wav
 ```
 
-### Genral usage
+### General usage
 #### Dereverberation
 ```bash
 python -m neural_fcasa.dereverberate input.wav output.wav
@@ -51,13 +51,18 @@ We used the following configuration for the evaluation in the paper:
 python -m neural_fcasa.separate one hf://b-sigpro/neural-fcasa --dump_diar --noi_snr=40 --normalize input.wav output.wav
 ```
 
-## Traininig
+
+### Limitations
+The current inference script has the following limitations, which we are addressing to solve:
+* [ ] The # mics. must be the same as that at the training (8).
+* [ ] The input length must be less than 50 seconds due to the max. length of the positional encoding (5000).
+* [ ] The performance will be maximized by making the input length the same as that at the training (10 seconds).
+
+## Training
 The training script is compatible with PyTorch Lightning >= 2.2.3.
 
-The training job file for [AI Bridging Cloud Infrastructure (ABCI)](https://abci.ai/) is attatched on [`recipes/neural-fcasa`](https://github.com/b-sigpro/neural-fcasa/tree/main/recipes/neural-fcasa).
+The training job file for [AI Bridging Cloud Infrastructure (ABCI)](https://abci.ai/) is attached on [`recipes/neural-fcasa`](https://github.com/b-sigpro/neural-fcasa/tree/main/recipes/neural-fcasa).
 Please see [`config.yaml`](https://github.com/b-sigpro/neural-fcasa/tree/main/recipes/neural-fcasa/config.yaml) for details.
-
-
 
 ## Reference
 ```bibtex
