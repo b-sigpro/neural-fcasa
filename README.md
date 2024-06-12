@@ -61,8 +61,8 @@ The current inference script has the following limitations, which we are address
 ## Training
 The training script is compatible with PyTorch Lightning >= 2.2.3.
 
-The training job file for [AI Bridging Cloud Infrastructure (ABCI)](https://abci.ai/) is attached on [`recipes/neural-fcasa`](https://github.com/b-sigpro/neural-fcasa/tree/main/recipes/neural-fcasa).
-Please see [`config.yaml`](https://github.com/b-sigpro/neural-fcasa/tree/main/recipes/neural-fcasa/config.yaml) for details.
+The training job script for [AI Bridging Cloud Infrastructure (ABCI)](https://abci.ai/) is attached on [`recipes/neural-fcasa`](https://github.com/b-sigpro/neural-fcasa/tree/main/recipes/neural-fcasa).
+We will add a detailed instruction for training soon.
 
 ## Reference
 ```bibtex
