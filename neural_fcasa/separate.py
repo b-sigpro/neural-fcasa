@@ -63,7 +63,7 @@ def initialize(args: Namespace, unk_args: list[str]):
         config.task,
         checkpoint_path=checkpoint_path,
         map_location=args.device,
-    )
+    ).to(args.device)
     model.eval()
 
     istft = InverseSpectrogram(model.stft[0].n_fft, hop_length=model.stft[0].hop_length).to(args.device)
