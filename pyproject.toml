@@ -30,6 +30,11 @@ dependencies = [
     "nara_wpe"
 ]
 
+[project.optional-dependencies]
+dev = [
+    "ruff"
+]
+
 [project.urls]
 Home = "https://ybando.jp"
 
