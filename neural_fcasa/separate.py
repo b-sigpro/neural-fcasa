@@ -87,7 +87,7 @@ def separate(src_filename: Path, dst_filename: Path, ctx: Context, args: Namespa
 
     if src_wav.shape[1] != ctx.config.n_mic:
         raise RuntimeError(
-            f"The number of input channels is found to be {src_wav.shape[1]} but should be {ctx.config.n_mic}. "
+            f"The number of input channels is {src_wav.shape[1]} but should be {ctx.config.n_mic}. "
             "Please specify a {ctx.config.n_mic}-channel signal to `src_filename`."
         )
 
