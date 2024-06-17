@@ -82,8 +82,14 @@ def separate(src_filename: Path, dst_filename: Path, ctx: Context, args: Namespa
     model, istft = ctx.model, ctx.istft
 
     # load wav
-    src_wav, sr = sf.read(src_filename, dtype=np.float32)
+    src_wav, sr = sf.read(src_filename, dtype=np.float32, always_2d=True)
     src_wav = rearrange(torch.from_numpy(src_wav).to(model.device), "t m -> 1 m t")
+
+    if src_wav.shape[1] != ctx.config.n_mic:
+        raise RuntimeError(
+            f"The number of input channels is found to be {src_wav.shape[1]} but should be {ctx.config.n_mic}. "
+            "Please specify a {ctx.config.n_mic}-channel signal to `src_filename`."
+        )
 
     # calculate spectrogram
     xraw = model.stft(src_wav)[..., : src_wav.shape[-1] // model.hop_length]  # [B, F, M, T]
