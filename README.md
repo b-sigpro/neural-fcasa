@@ -59,7 +59,10 @@ The current inference script has the following limitations, which we are address
 * [ ] The performance will be maximized by making the input length the same as that at the training (10 seconds).
 
 ## Training
-The training script is compatible with PyTorch Lightning >= 2.2.3.
+The training script is compatible with PyTorch Lightning >= 2.2.3. The training dependencies will be installed by
+```bash
+pip install -e .[dev]
+```
 
 The training job script for [AI Bridging Cloud Infrastructure (ABCI)](https://abci.ai/) is attached on [`recipes/ami/`](https://github.com/b-sigpro/neural-fcasa/tree/main/recipes/neural-fcasa).
 

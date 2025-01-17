@@ -33,7 +33,11 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "ruff",
-    "wpe-gpu"
+    "wpe-gpu",
+    "mpi4py",
+    "pandas",
+    "cupy",
+    "h5py"
 ]
 
 [project.urls]
