@@ -79,7 +79,7 @@ def make_dataset(args, unk_args):
 
             all_grp_names = filter(None, comm.allgather(grp_name))
             all_durations = filter(None, comm.allgather(duration))
-            for grp_name_, duration_ in zip(all_grp_names, all_durations):
+            for grp_name_, duration_ in zip(all_grp_names, all_durations, strict=False):
                 g = f.create_group(grp_name_)
                 g.create_dataset("wav", [n_mic, duration_], "float32")
                 g.create_dataset("act", [5, duration_ // args.hop_length], "float32")

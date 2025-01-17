@@ -8,7 +8,6 @@ from pathlib import Path
 from progressbar import progressbar as pbar
 
 import cupy as cp
-
 from mpi4py import MPI
 from mpi4py.futures import MPIPoolExecutor
 from wpe import wpe
@@ -19,7 +18,8 @@ import soundfile as sf
 
 def split_data_one(src_filename, dst_path):
     """
-    Note that we used our torch implementation of WPE in our Interspeech paper, while here we replaced it with the more standard `gpu-wpe`.
+    Note that we used our torch implementation of WPE in our Interspeech paper,
+    while here we replaced it with the more standard `gpu-wpe`.
     If there is a reproduction issue, please let us know.
     """
     comm = MPI.COMM_WORLD
