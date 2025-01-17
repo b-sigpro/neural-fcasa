@@ -31,13 +31,15 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = [
-    "ruff",
+train = [
     "wpe-gpu",
     "mpi4py",
     "pandas",
     "cupy",
     "h5py"
+]
+dev = [
+    "ruff",
 ]
 
 [project.urls]

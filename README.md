@@ -61,7 +61,7 @@ The current inference script has the following limitations, which we are address
 ## Training
 The training script is compatible with PyTorch Lightning >= 2.2.3. The training dependencies will be installed by
 ```bash
-pip install -e .[dev]
+pip install -e .[train]
 ```
 
 The training job script for [AI Bridging Cloud Infrastructure (ABCI)](https://abci.ai/) is attached on [`recipes/ami/`](https://github.com/b-sigpro/neural-fcasa/tree/main/recipes/neural-fcasa).
