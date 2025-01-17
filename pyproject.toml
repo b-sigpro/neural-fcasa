@@ -31,8 +31,15 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+train = [
+    "wpe-gpu",
+    "mpi4py",
+    "pandas",
+    "cupy",
+    "h5py"
+]
 dev = [
-    "ruff"
+    "ruff",
 ]
 
 [project.urls]

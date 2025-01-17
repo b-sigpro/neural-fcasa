@@ -59,10 +59,47 @@ The current inference script has the following limitations, which we are address
 * [ ] The performance will be maximized by making the input length the same as that at the training (10 seconds).
 
 ## Training
-The training script is compatible with PyTorch Lightning >= 2.2.3.
+The training script is compatible with PyTorch Lightning >= 2.2.3. The training dependencies will be installed by
+```bash
+pip install -e .[train]
+```
 
-The training job script for [AI Bridging Cloud Infrastructure (ABCI)](https://abci.ai/) is attached on [`recipes/neural-fcasa`](https://github.com/b-sigpro/neural-fcasa/tree/main/recipes/neural-fcasa).
-We will add a detailed instruction for training soon.
+The training job script for [AI Bridging Cloud Infrastructure (ABCI)](https://abci.ai/) is attached on [`recipes/ami/`](https://github.com/b-sigpro/neural-fcasa/tree/main/recipes/neural-fcasa).
+
+0. Prepare a singularity container and place it as `recipes/singularity/singularity.sif`
+
+1. Move to the recipe directory
+    ```bash
+    cd recipes/ami/
+    ```
+
+2. Download the ami corpus and its metadata and configure `dataset_path` and `metadata_path` in `scripts/config.yaml`
+
+3. Split audio files with the following command and with the submitted job to finish:
+    ```bash
+    ./scripts/1_split_data.py sub
+    ```
+
+4. Split speaker activities:
+  ```bash
+  ./scripts/2_split_activations.py sub
+  ```
+
+5. Dereverberate audio files
+  ```bash
+  ./scripts/3_dereverberate.py sub
+  ```
+
+6. Make HDF5
+  ```bash
+  ./scripts/4_make_dataset_chunk.py sub
+  ```
+  Please make sure that you are using h5py capable of parallel HDF5
+
+7. Submit training job
+  ```bash
+  ./models/neural-fcasa/train.sh -q
+  ```
 
 ## Reference
 ```bibtex
