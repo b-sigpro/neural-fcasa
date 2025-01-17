@@ -32,7 +32,8 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-    "ruff"
+    "ruff",
+    "wpe-gpu"
 ]
 
 [project.urls]
