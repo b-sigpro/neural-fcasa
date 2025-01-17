@@ -81,25 +81,25 @@ The training job script for [AI Bridging Cloud Infrastructure (ABCI)](https://ab
     ```
 
 4. Split speaker activities:
-  ```bash
-  ./scripts/2_split_activations.py sub
-  ```
+    ```bash
+    ./scripts/2_split_activations.py sub
+    ```
 
 5. Dereverberate audio files
-  ```bash
-  ./scripts/3_dereverberate.py sub
-  ```
+    ```bash
+    ./scripts/3_dereverberate.py sub
+    ```
 
 6. Make HDF5
-  ```bash
-  ./scripts/4_make_dataset_chunk.py sub
-  ```
-  Please make sure that you are using h5py capable of parallel HDF5
+    ```bash
+    ./scripts/4_make_dataset_chunk.py sub
+    ```
+    Please make sure that you are using h5py capable of parallel HDF5
 
 7. Submit training job
-  ```bash
-  ./models/neural-fcasa/train.sh -q
-  ```
+    ```bash
+    ./models/neural-fcasa/train.sh -q
+    ```
 
 ## Reference
 ```bibtex
