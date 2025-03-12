@@ -35,7 +35,7 @@ def split_data_one(src_filename, dst_path):
         if (cp.abs(src_spec) ** 2).max(axis=0).min() == 0:
             return
 
-        dst_spec = wpe(src_spec, taps=10, delay=3)
+        dst_spec = wpe(src_spec.transpose(1, 0, 2), taps=10, delay=3)
 
         dst_wav = lr.istft(dst_spec.get().transpose(1, 0, 2), hop_length=160).T
 
